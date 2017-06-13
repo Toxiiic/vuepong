@@ -1,9 +1,12 @@
-var colAmount = 7;
-var rowAmount = 5;
+//var colAmount = 7;
+//var rowAmount = 5;
 
 var gameVm = new Vue({
     el: '#game',
     data: {
+        row: 10,
+        col: 7,
+        score: 0,
         chessRows: [
             [
                 {
@@ -152,7 +155,7 @@ var gameVm = new Vue({
     },
     
     mounted: function() {
-        
+        this.chessRows = this.getNewChessRows(this.row, this.col);
     },
     methods: {
         onClickChess: function(android, rowIndex, chessIndex) {
@@ -182,7 +185,7 @@ var gameVm = new Vue({
                 }
             }
             //向右找
-            for(i=chessIndex; i<colAmount-1; ) {
+            for(i=chessIndex; i<this.col-1; ) {
                 i++;
                 //如果找到android
                 if(this.chessRows[rowIndex][i].android) {
@@ -209,8 +212,8 @@ var gameVm = new Vue({
                     break;
                 }
             }
-            //向上找
-            for(i=rowIndex; i<rowAmount-1; ) {
+            //向下找
+            for(i=rowIndex; i<this.row-1; ) {
                 i++;
                 //如果找到android
                 if(this.chessRows[i][chessIndex].android) {
@@ -240,16 +243,62 @@ var gameVm = new Vue({
                 }
             }
             
-            
-            
-            
-            
             //对结果进行消灭
             for(var i in results) {
                 if(typeof results[i] == "object") {
                     this.chessRows[results[i].row][results[i].col].android = false;
+                    this.score++;
                 }
             }
+        },
+        
+        
+        /* 出题：实质为打乱？ */
+        getNewChessRows: function(row, col) {
+            var newChessesRows = new Array();
+
+
+            var originalNum;
+            var originalNumUsed = new Array();
+            var originalRow;
+
+            var rowIndex = 0;
+            var colIndex = 0;
+            for(rowIndex = 0; rowIndex<row; rowIndex++) {
+                newChessesRows.push(new Array());
+                for(colIndex = 0; colIndex<col; colIndex++) {
+                    //在所有小方块数量中抽一个号
+                    originalNum = Math.floor((Math.random()*70));
+                    //如果已经被抽过了，跳过，重新抽
+                    if(originalNumUsed.indexOf(originalNum)>-1) {
+                        colIndex--;
+                        continue;
+                    }
+                    //抽到新的的话：
+
+                    //看位置得到是什么块
+                    //小于50是android
+                    if(originalNum < 50) {
+                        newChessesRows[rowIndex][colIndex] = {
+                            android: true,
+                            level: 0,
+                            type: Math.floor(originalNum/10)
+                        }
+                    } else {
+                        //大于是ios
+                        newChessesRows[rowIndex][colIndex] = {
+                            android: false
+                        }
+                    }
+
+
+                    //记录已经被抽取的号
+                    originalNumUsed.push(originalNum);
+                }
+            }
+
+
+            return newChessesRows;
         }
     }
     
