@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+    <div id="game">
+        <div id="dashboard">
+            <div class="score">2</div>
+            <div class="next">
+                <div>next</div>
+                <div>98</div>
+            </div>
+        </div>
+        
+        
+        <div id="chessboard">
+            <div v-for="(chessRow, rowIndex) in chessRows">
+                <div class="game-block" v-for="(chess, chessIndex) in chessRow" :class="{android:chess.android, ios:!chess.android}" :data-type="'android-'+chess.type" @click="onClickChess(chess.android, rowIndex, chessIndex)">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+<script src="../js/vue.js"></script>
+<script src="../js/index.js"></script>
+</html>
