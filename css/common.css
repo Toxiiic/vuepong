@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+#game {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #292929;
+    height: 700px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 1px #d4d4d4;
+    color: white;
+    padding: 10px;
+}
+
+.game-block {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 2px;
+}
+[data-type=android-0] {
+    background: #ff00c4;
+}
+[data-type=android-1] {
+    background: #8900ff;
+}
+[data-type=android-2] {
+    background: #0049d3;
+}
+[data-type=android-3] {
+    background: #7cd600;
+}
+[data-type=android-4] {
+    background: #d96400;
+}
+.ios {
+    background: #4e4e4e;
+    cursor: pointer;
+}
