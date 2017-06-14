@@ -9,14 +9,48 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 5px 1px #d4d4d4;
     color: white;
-    padding: 10px;
+    padding: 15px 10px;
     box-sizing: border-box;
+    position: relative;
+    
+    #dashboard {
+        height: 80px;
+        .score {
+            text-align: center;
+            font-size: 26pt;
+            font-weight: bolder;
+        }
+        .next {
+            position: absolute;
+            right: 22px;
+            top: 20px;
+            padding: 1px 18px;
+            background: #414141;
+            border-radius: 8px;
+            text-align: center;
+            
+            div {
+                line-height: 1.2;
+            }
+        }
+    }
+    
+    #chessboard {
+        width: 294px;
+        margin: 0 auto;
+        overflow: hidden;
+        height: 480px;
+        border-radius: 10px;
+        position: relative;
+        
+        
+        #rollingPanel {
+            transform: rotate(180deg);
+            position: absolute;
+        }
+    }
 }
 
-#chessboard {
-    width: 294px;
-    margin: 0 auto;
-}
 
 .game-block {
     display: inline-block;
