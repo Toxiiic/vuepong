@@ -1,80 +1,84 @@
+@charset "UTF-8";
+/* line 1, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 body {
-    margin: 0;
-}
+  margin: 0; }
+
+/* line 4, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 #game {
-    max-width: 330px;
-    margin: 10px auto;
-    background: #292929;
-    height: 620px;
+  max-width: 330px;
+  margin: 10px auto;
+  background: #292929;
+  height: 620px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px #d4d4d4;
+  color: white;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  position: relative; }
+  /* line 16, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
+  #game #dashboard {
+    height: 80px; }
+    /* line 18, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
+    #game #dashboard .score {
+      text-align: center;
+      font-size: 26pt;
+      font-weight: bolder; }
+    /* line 23, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
+    #game #dashboard .next {
+      position: absolute;
+      right: 22px;
+      top: 20px;
+      padding: 1px 18px;
+      background: #414141;
+      border-radius: 8px;
+      text-align: center; }
+      /* line 32, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
+      #game #dashboard .next div {
+        line-height: 1.2; }
+  /* line 38, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
+  #game #chessboard {
+    width: 294px;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 480px;
     border-radius: 10px;
-    box-shadow: 0 0 5px 1px #d4d4d4;
-    color: white;
-    padding: 15px 10px;
-    box-sizing: border-box;
-    position: relative;
-    
-    #dashboard {
-        height: 80px;
-        .score {
-            text-align: center;
-            font-size: 26pt;
-            font-weight: bolder;
-        }
-        .next {
-            position: absolute;
-            right: 22px;
-            top: 20px;
-            padding: 1px 18px;
-            background: #414141;
-            border-radius: 8px;
-            text-align: center;
-            
-            div {
-                line-height: 1.2;
-            }
-        }
-    }
-    
-    #chessboard {
-        width: 294px;
-        margin: 0 auto;
-        overflow: hidden;
-        height: 480px;
-        border-radius: 10px;
-        position: relative;
-        
-        
-        #rollingPanel {
-            transform: rotate(180deg);
-            position: absolute;
-        }
-    }
-}
+    position: relative; }
+    /* line 47, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
+    #game #chessboard #rollingPanel {
+      transform: rotate(180deg);
+      position: absolute; }
 
-
+/* line 55, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 .game-block {
-    display: inline-block;
-    width: 38px;
-    height: 38px;
-    border-radius: 5px;
-    margin: 2px;
-}
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  border-radius: 5px;
+  margin: 2px; }
+
+/* line 62, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 [data-type=android-0] {
-    background: #ff00c4;
-}
+  background: #ff00c4; }
+
+/* line 65, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 [data-type=android-1] {
-    background: #8900ff;
-}
+  background: #8900ff; }
+
+/* line 68, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 [data-type=android-2] {
-    background: #0049d3;
-}
+  background: #0049d3; }
+
+/* line 71, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 [data-type=android-3] {
-    background: #7cd600;
-}
+  background: #7cd600; }
+
+/* line 74, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 [data-type=android-4] {
-    background: #d96400;
-}
+  background: #d96400; }
+
+/* line 77, /projects/2017-06-13 Teaching-短周期Vue/css/common.scss */
 .ios {
-    background: #4e4e4e;
-    cursor: pointer;
-}
+  background: #4e4e4e;
+  cursor: pointer; }
+
+/*# sourceMappingURL=common.css.map */
