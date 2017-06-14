@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no"> <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/common.css?v=0.0.2">
+    <meta charset="UTF-8"><meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no"> <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+    <title>vuepong</title>
+<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <link rel="stylesheet" href="../css/common.css">
 </head>
 <body>
     <div id="game">
         <div id="dashboard">
-            <div class="score">2</div>
+            <div class="score">{{score}}</div>
             <div class="next">
                 <div>next</div>
                 <div>98</div>
             </div>
         </div>
         
-        
+<!-- 固定不变的棋盘 -->
         <div id="chessboard">
-            <div v-for="(chessRow, rowIndex) in chessRows">
-                <div class="game-block" v-for="(chess, chessIndex) in chessRow" :class="{android:chess.android, ios:!chess.android}" :data-type="'android-'+chess.type" @click="onClickChess(chess.android, rowIndex, chessIndex)">
+<!-- 滚动的面板 -->
+            <div id="rollingPanel" :style="
+                'bottom:'+ translateY +'px; transition: bottom '+ rollOnceTime +'s linear;'">
+                <div v-for="(chessRow, rowIndex) in chessRows">
+                    <div class="game-block" v-for="(chess, chessIndex) in chessRow" :class="{android:chess.android, ios:!chess.android}" :data-type="'android-'+chess.type" @click="onClickChess(chess.android, rowIndex, chessIndex)">
+<!--                    {{rowIndex +" "+ chessIndex}}-->
+                    </div>
                 </div>
             </div>
-            
         </div>
     </div>
+    
 </body>
-
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script src="./js/index.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/index.js"></script>
 </html>
