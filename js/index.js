@@ -1,163 +1,34 @@
-//var colAmount = 7;
-//var rowAmount = 5;
 
 var gameVm = new Vue({
     el: '#game',
     data: {
-        row: 10,
+        onceRow: 20,
         col: 7,
         score: 0,
-        chessRows: [
-            [
-                {
-                    android: true,
-                    level: 0,
-                    type: 1
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 2
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 2
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 4
-                }
-            ],[
-                {
-                    android: true,
-                    level: 0,
-                    type: 1
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 2
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 0
-                },
-                {
-                    android: false,
-                },
-            ],[
-                
-                {
-                    android: false,
-                },
-                {
-                    android: false,
-                },{
-                    android: true,
-                    level: 0,
-                    type: 4
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 1
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 2
-                },
-                {
-                    android: false,
-                },
-            ],[
-                
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 2
-                },
-                {
-                    android: false,
-                },{
-                    android: true,
-                    level: 0,
-                    type: 4
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 1
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: false,
-                },
-            ],[
-                
-                {
-                    android: false,
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 2
-                },
-                {
-                    android: false,
-                },
-                {
-                    android: false,
-                },{
-                    android: true,
-                    level: 0,
-                    type: 4
-                },
-                {
-                    android: true,
-                    level: 0,
-                    type: 1
-                },
-                {
-                    android: false,
-                },
-            ],
-        ]
+        chessRows: [],
+        translateY: 155,
+        //这个单位是s
+        rollOnceTime: 30
     },
     
     mounted: function() {
-        this.chessRows = this.getNewChessRows(this.row, this.col);
+        //出题
+        this.chessRows = this.getNewChessRows(this.onceRow, this.col);
+        
+        //开始向下走
+        setTimeout(function() {
+            
+            gameVm.translateY -= 500;
+            setInterval(function() {
+                //每500s都要 向下走 和 增加新题
+                gameVm.translateY -= 500;
+                gameVm.chessRows = gameVm.chessRows.concat(gameVm.getNewChessRows(gameVm.onceRow, gameVm.col));
+            }, gameVm.rollOnceTime * 1000);
+        }, 1000);
+        
     },
     methods: {
+        
         onClickChess: function(android, rowIndex, chessIndex) {
             //不是android才可以点击有效
             if(android) {
@@ -165,8 +36,6 @@ var gameVm = new Vue({
             }
             
             //如果点击有效
-            
-//            var left, right, top, bottom;
             var candidates = new Array();
             
             var i = 0;
@@ -213,7 +82,7 @@ var gameVm = new Vue({
                 }
             }
             //向下找
-            for(i=rowIndex; i<this.row-1; ) {
+            for(i=rowIndex; i<this.chessRows.length-1; ) {
                 i++;
                 //如果找到android
                 if(this.chessRows[i][chessIndex].android) {
@@ -257,7 +126,6 @@ var gameVm = new Vue({
         getNewChessRows: function(row, col) {
             var newChessesRows = new Array();
 
-
             var originalNum;
             var originalNumUsed = new Array();
             var originalRow;
@@ -267,8 +135,9 @@ var gameVm = new Vue({
             for(rowIndex = 0; rowIndex<row; rowIndex++) {
                 newChessesRows.push(new Array());
                 for(colIndex = 0; colIndex<col; colIndex++) {
+                    
                     //在所有小方块数量中抽一个号
-                    originalNum = Math.floor((Math.random()*70));
+                    originalNum = Math.floor((Math.random()*this.col*this.onceRow));
                     //如果已经被抽过了，跳过，重新抽
                     if(originalNumUsed.indexOf(originalNum)>-1) {
                         colIndex--;
@@ -278,11 +147,11 @@ var gameVm = new Vue({
 
                     //看位置得到是什么块
                     //小于50是android
-                    if(originalNum < 50) {
+                    if(originalNum < 75) {
                         newChessesRows[rowIndex][colIndex] = {
                             android: true,
                             level: 0,
-                            type: Math.floor(originalNum/10)
+                            type: Math.floor(originalNum/15)
                         }
                     } else {
                         //大于是ios
@@ -290,14 +159,10 @@ var gameVm = new Vue({
                             android: false
                         }
                     }
-
-
                     //记录已经被抽取的号
                     originalNumUsed.push(originalNum);
                 }
             }
-
-
             return newChessesRows;
         }
     }
